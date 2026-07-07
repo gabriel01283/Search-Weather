@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Weather - Home</title>
+
+    <link rel="stylesheet" href="/frontEnd/parteCSS/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div>
+            <h1>SEARCH WEATHER</h1>
+
+            <ul>
+                <li>Buscar</li>
+                <li>Favoritos</li>
+                <li>Histórico</li>
+                <li>Alertas</li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <form class="card_principal">
+            <div>
+                <div class="weather-circle">
+                    <i id="weatherIcon" class="fa-solid fa-cloud-sun"></i>
+                </div>
+
+                <select name="pais" id="pais" required>
+                    <option value="" selected disabled>País</option>
+                </select>
+
+                <select name="estado" id="estado" required>
+                    <option value="" selected disabled>Estado</option>
+                </select>
+
+                <select name="cidade" id="cidade" required>
+                    <option value="" selected disabled>Cidade</option>
+                </select>
+
+                <button type="submit">Buscar clima</button>
+            </div>
+        </form>
+    </main>
+</body>
+</html>
