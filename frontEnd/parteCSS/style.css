@@ -37,6 +37,12 @@ body {
     box-shadow: 10px 0 35px rgba(31, 41, 55, 0.10);
 }
 
+.navbar a {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+}
+
 .navbar div {
     height: 100%;
     display: flex;

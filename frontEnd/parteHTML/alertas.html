@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Weather - Alertas</title>
+    <link rel="stylesheet" href="/frontEnd/parteCSS/alertas.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div>
+            <h1>SEARCH WEATHER</h1>
+
+            <ul>
+                <li><a href="/frontEnd/parteHTML/index.html">Home</a></li>
+                <li><a href="/frontEnd/parteHTML/busca.html">Buscar</a></li>
+                <li><a href="/frontEnd/parteHTML/favoritos.html">Favoritos</a></li>
+                <li><a href="/frontEnd/parteHTML/historico.html">Histórico</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <main class="main_content">
+
+        <section class="alerts_container">
+
+            <h2>Alertas</h2>
+
+            <form class="alert_form">
+
+                <input type="text" placeholder="Cidade">
+
+                <select>
+                    <option>Temperatura Alta</option>
+                    <option>Temperatura Baixa</option>
+                    <option>Chuva</option>
+                    <option>Tempestade</option>
+                    <option>Ventos Fortes</option>
+                </select>
+
+                <button type="submit">
+                    Adicionar Alerta
+                </button>
+
+            </form>
+
+            <div class="alerts_list">
+
+                <div class="alert_card">
+                    <h3>São Paulo - SP</h3>
+
+                    <p>Tipo: Chuva</p>
+
+                    <button>Remover</button>
+                </div>
+
+                <div class="alert_card">
+                    <h3>Recife - PE</h3>
+
+                    <p>Tipo: Temperatura Alta</p>
+
+                    <button>Remover</button>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>

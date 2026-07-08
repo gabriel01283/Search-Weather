@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Weather - Buscar</title>
+    <link rel="stylesheet" href="/frontEnd/parteCSS/busca.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div>
+            <h1>SEARCH WEATHER</h1>
+
+            <ul>
+                <li><a href="/frontEnd/parteHTML/index.html">Home</a></li>
+                <li><a href="/frontEnd/parteHTML/favoritos.html">Favoritos</a></li>
+                <li><a href="/frontEnd/parteHTML/historico.html">Histórico</a></li>
+                <li><a href="/frontEnd/parteHTML/alertas.html">Alertas</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main_content">
+        <section class="search_area">
+            <form class="search_bar">
+                <input type="text" placeholder="Busque por uma cidade..." required>
+                <button type="submit">Buscar</button>
+            </form>
+
+            <div class="result_card">
+                <h2>Cidade, Estado</h2>
+
+                <div class="weather_info">
+                    <div>
+                        <span>Temperatura</span>
+                        <strong>25°C</strong>
+                    </div>
+
+                    <div>
+                        <span>Clima</span>
+                        <strong>Ensolarado</strong>
+                    </div>
+
+                    <div>
+                        <span>Umidade</span>
+                        <strong>68%</strong>
+                    </div>
+
+                    <div>
+                        <span>Vento</span>
+                        <strong>12 km/h</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
