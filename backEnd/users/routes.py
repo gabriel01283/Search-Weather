@@ -1,8 +1,11 @@
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status
 
+from backEnd.auth.security import create_access_token, get_current_user
 from backEnd.users.models import UserCreate, UserLogin
-from backEnd.users.service import create_user, authenticate_user, get_user_by_id
-
+from backEnd.users.service import (
+    authenticate_user,
+    create_user
+)
 
 router = APIRouter(
     prefix="/users",
@@ -50,20 +53,20 @@ def login_user(user_data: UserLogin):
             detail="E-mail ou senha inválidos."
         )
 
+    access_token = create_access_token(
+        user_id=user["id"]
+    )
+
     return {
         "message": "Login realizado com sucesso.",
+        "access_token": access_token,
+        "token_type": "Bearer",
         "user": user
     }
 
 
-@router.get("/{user_id}")
-def get_user(user_id: int):
-    user = get_user_by_id(user_id)
-
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Usuário não encontrado."
-        )
-
-    return user
+@router.get("/profile")
+def profile(
+    current_user=Depends(get_current_user)
+):
+    return current_user
