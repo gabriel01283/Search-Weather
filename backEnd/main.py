@@ -1,10 +1,15 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from backEnd.cities.routes import router as cities_router
+from backEnd.users.routes import router as users_router
 
-app = FastAPI()
 
-# CORS
+app = FastAPI(
+    title="Search Weather API",
+    version="1.0.0"
+)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -13,8 +18,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(users_router)
+app.include_router(cities_router)
 
-# Retorno do backend funcionando
+
 @app.get("/")
 def home():
-    return{"message": "Backend funcionando"}
+    return {
+        "message": "Backend funcionando"
+    }
