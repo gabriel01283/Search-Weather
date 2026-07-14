@@ -150,7 +150,7 @@ def clear_user_history(user_id: int) -> int:
 
         deleted_count = cursor.rowcount
         connection.commit()
-
+        
         return deleted_count
 
     except Exception:

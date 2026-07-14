@@ -5,10 +5,11 @@ const weatherSearchForm = document.getElementById(
 );
 
 const cityInput = document.getElementById("cityInput");
+const stateInput = document.getElementById("stateInput");
+const countryInput = document.getElementById("countryInput");
 const searchButton = document.getElementById("searchButton");
 const searchMessage = document.getElementById("searchMessage");
 const resultCard = document.getElementById("resultCard");
-
 const resultCity = document.getElementById("resultCity");
 const resultLocation = document.getElementById("resultLocation");
 const resultTemperature = document.getElementById(
@@ -43,7 +44,7 @@ let currentCityId = null;
 
 
 function getToken() {
-    return localStorage.getItem("token");
+    return window.SearchWeatherAuth.getToken();
 }
 
 
@@ -213,13 +214,20 @@ weatherSearchForm.addEventListener(
         const token = getToken();
         const cityName = cityInput.value.trim();
 
+        const state = stateInput.value.trim();
+
+        const country = countryInput.value.trim();
+
         if (!token) {
             redirectToLogin();
             return;
         }
 
-        if (!cityName) {
-            setMessage("Digite o nome de uma cidade.");
+        if(!cityName || !country){
+            setMessage(
+                "Informe a cidade e o pais."
+            );
+
             return;
         }
 
@@ -236,11 +244,11 @@ weatherSearchForm.addEventListener(
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`
                     },
-
+                    
                     body: JSON.stringify({
                         city_name: cityName,
-                        state: null,
-                        country: "Brasil"
+                        state: state || null,
+                        country: country
                     })
                 }
             );
@@ -248,10 +256,7 @@ weatherSearchForm.addEventListener(
             const data = await response.json();
 
             if (response.status === 401) {
-                localStorage.removeItem("token");
-                localStorage.removeItem("user");
-
-                redirectToLogin();
+                window.SearchWeatherAuth.logout();
                 return;
             }
 
@@ -320,10 +325,7 @@ favoriteButton.addEventListener(
             const data = await response.json();
 
             if (response.status === 401) {
-                localStorage.removeItem("token");
-                localStorage.removeItem("user");
-
-                redirectToLogin();
+                window.SearchWeatherAuth.logout();
                 return;
             }
 
@@ -343,6 +345,50 @@ favoriteButton.addEventListener(
 
         } catch (error) {
             setMessage(error.message);
+        }
+    }
+);
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+        const storedSearch =
+            sessionStorage.getItem(
+                "homeWeatherSearch"
+            );
+
+        if (!storedSearch) {
+            return;
+        }
+
+        try {
+            const searchData =
+                JSON.parse(storedSearch);
+
+            cityInput.value =
+                searchData.city_name || "";
+
+            stateInput.value =
+                searchData.state || "";
+
+            countryInput.value =
+                searchData.country || "Brasil";
+
+            sessionStorage.removeItem(
+                "homeWeatherSearch"
+            );
+
+            weatherSearchForm.requestSubmit();
+
+        } catch (error) {
+            sessionStorage.removeItem(
+                "homeWeatherSearch"
+            );
+
+            console.error(
+                "Erro ao carregar busca da Home:",
+                error
+            );
         }
     }
 );

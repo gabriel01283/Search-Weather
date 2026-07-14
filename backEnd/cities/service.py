@@ -98,7 +98,7 @@ def create_city(
 def list_cities():
     connection = None
     cursor = None
-
+    
     try:
         connection = get_connection()
         cursor = connection.cursor(cursor_factory=RealDictCursor)

@@ -14,12 +14,12 @@ body {
     background:
         radial-gradient(
             circle at top right,
-            rgba(125, 211, 252, 0.35),
+            rgba(56, 189, 248, 0.3),
             transparent 35%
         ),
         radial-gradient(
             circle at bottom left,
-            rgba(134, 239, 172, 0.35),
+            rgba(34, 197, 94, 0.28),
             transparent 35%
         ),
         linear-gradient(
@@ -228,60 +228,29 @@ body {
     padding: 60px 80px;
 }
 
-.history_container {
+.profile_container {
     width: 100%;
-    max-width: 850px;
+    max-width: 780px;
     margin: 0 auto;
 }
 
-.history_container h2 {
-    margin-bottom: 28px;
+.profile_header {
+    display: flex;
+    align-items: center;
+    gap: 22px;
 
-    color: #14532d;
-    font-size: 42px;
+    margin-bottom: 24px;
 }
 
-.history_search {
-    width: 100%;
-    height: 60px;
+.profile_avatar {
+    width: 86px;
+    height: 86px;
 
     display: flex;
-    gap: 14px;
+    align-items: center;
+    justify-content: center;
 
-    margin-bottom: 18px;
-}
-
-.history_search input {
-    flex: 1;
-    padding: 0 22px;
-
-    border: 1px solid rgba(14, 165, 233, 0.22);
-    border-radius: 18px;
-
-    background: rgba(255, 255, 255, 0.78);
-
-    outline: none;
-
-    color: #1f2937;
-    font-size: 16px;
-
-    transition: 0.25s ease;
-}
-
-.history_search input:focus {
-    border-color: #0ea5e9;
-
-    transform: translateY(-1px);
-
-    box-shadow:
-        0 0 0 4px rgba(14, 165, 233, 0.14);
-}
-
-.history_search button {
-    width: 130px;
-
-    border: none;
-    border-radius: 18px;
+    border-radius: 50%;
 
     background:
         linear-gradient(
@@ -291,51 +260,24 @@ body {
         );
 
     color: white;
-    font-weight: bold;
-
-    cursor: pointer;
-    transition: 0.25s ease;
-}
-
-.history_search button:hover {
-    transform: translateY(-2px);
+    font-size: 34px;
 
     box-shadow:
-        0 14px 30px rgba(14, 165, 233, 0.2);
+        0 16px 35px rgba(14, 165, 233, 0.2);
 }
 
-/* LIMPAR HISTÓRICO */
+.profile_header h2 {
+    margin-bottom: 6px;
 
-.clear_history_button {
-    display: block;
-    width: 180px;
-    height: 46px;
-    margin-left: auto;
-    margin-bottom: 18px;
-
-    border: 1px solid rgba(220, 38, 38, 0.22);
-    border-radius: 16px;
-
-    background: rgba(254, 226, 226, 0.75);
-    color: #b91c1c;
-
-    font-family: inherit;
-    font-size: 15px;
-    font-weight: bold;
-
-    cursor: pointer;
-    transition: 0.25s ease;
+    color: #14532d;
+    font-size: 36px;
 }
 
-.clear_history_button:hover {
-    background: rgba(254, 202, 202, 0.9);
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 12px 28px rgba(185, 28, 28, 0.14);
+.profile_header p {
+    color: #64748b;
 }
 
-#historyMessage {
+#profileMessage {
     min-height: 24px;
     margin-bottom: 18px;
 
@@ -343,11 +285,8 @@ body {
     font-weight: 600;
 }
 
-.history_card {
-    height: 480px;
-    padding: 28px;
-
-    overflow-y: auto;
+.profile_card {
+    padding: 34px;
 
     border: 1px solid rgba(255, 255, 255, 0.75);
     border-radius: 30px;
@@ -361,68 +300,65 @@ body {
         0 24px 70px rgba(31, 41, 55, 0.12);
 }
 
-.history_item {
+.profile_field {
     margin-bottom: 18px;
     padding: 22px;
 
-    border-left: 5px solid #22c55e;
-    border-radius: 22px;
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    border-radius: 20px;
 
-    background: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.72);
 
     transition: 0.25s ease;
 }
 
-.history_item:hover {
+.profile_field:hover {
     transform: translateY(-2px);
 
     box-shadow:
         0 14px 30px rgba(31, 41, 55, 0.08);
 }
 
-.history_item h3 {
+.profile_field span {
+    display: block;
     margin-bottom: 8px;
-    color: #14532d;
-}
 
-.history_item p {
-    margin-bottom: 6px;
-    color: #334155;
-}
-
-.history_item span {
     color: #64748b;
     font-size: 14px;
 }
 
-.history_item button {
-    margin-top: 14px;
-    padding: 10px 14px;
+.profile_field strong {
+    color: #0f172a;
+    font-size: 18px;
+    word-break: break-word;
+}
+
+.profile_logout_button {
+    width: 100%;
+    height: 50px;
+    margin-top: 8px;
 
     border: none;
-    border-radius: 12px;
+    border-radius: 16px;
 
-    background: rgba(254, 226, 226, 0.85);
+    background: rgba(239, 68, 68, 0.12);
     color: #b91c1c;
 
     font-family: inherit;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
 
     cursor: pointer;
     transition: 0.25s ease;
 }
 
-.history_item button:hover {
-    background: rgba(254, 202, 202, 0.95);
-    transform: translateY(-1px);
+.profile_logout_button:hover {
+    background: rgba(239, 68, 68, 0.22);
+    transform: translateY(-2px);
 }
 
-.empty_message {
-    padding: 40px 20px;
-
-    color: #64748b;
-    text-align: center;
+.profile_logout_button i {
+    margin-right: 8px;
 }
 
 button:disabled {
@@ -456,24 +392,40 @@ button:disabled {
         padding: 35px 24px;
     }
 
-    .history_search {
-        height: auto;
+    .profile_header {
+        align-items: flex-start;
+    }
+
+    .profile_header h2 {
+        font-size: 30px;
+    }
+
+    .profile_card {
+        padding: 24px;
+    }
+}
+
+@media (max-width: 560px) {
+    .profile_header {
         flex-direction: column;
     }
 
-    .history_search input,
-    .history_search button {
-        width: 100%;
-        height: 54px;
+    .profile_avatar {
+        width: 74px;
+        height: 74px;
+        font-size: 30px;
     }
 
-    .clear_history_button {
-        width: 100%;
+    .profile_header h2 {
+        font-size: 27px;
     }
 
-    .history_card {
-        height: auto;
-        min-height: 360px;
+    .profile_card {
+        padding: 18px;
+    }
+
+    .profile_field {
+        padding: 18px;
     }
 }
 

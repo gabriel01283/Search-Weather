@@ -2,7 +2,11 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Search Weather - Home</title>
 
@@ -22,7 +26,7 @@
     <nav class="navbar">
         <div>
             <h1>SEARCH WEATHER</h1>
-            
+
             <ul>
                 <li>
                     <a href="/frontEnd/parteHTML/buscar.html">
@@ -47,76 +51,233 @@
                         Alertas
                     </a>
                 </li>
-
-                <li>
-                    <a href="/frontEnd/parteHTML/login.html">
-                        Login
-                    </a>
-                </li>
             </ul>
+
+            <div class="user_area">
+                <a
+                    href="/frontEnd/parteHTML/login.html"
+                    id="loginButton"
+                    class="login_button"
+                >
+                    Login
+                </a>
+
+                <div
+                    id="profileMenu"
+                    class="profile_menu"
+                    hidden
+                >
+                    <button
+                        type="button"
+                        id="profileButton"
+                        class="profile_button"
+                    >
+                        <i class="fa-solid fa-user"></i>
+
+                        <span id="userName">
+                            Perfil
+                        </span>
+
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+
+                    <div
+                        id="profileDropdown"
+                        class="profile_dropdown"
+                        hidden
+                    >
+                        <a href="/frontEnd/parteHTML/perfil.html">
+                            Meu perfil
+                        </a>
+
+                        <button
+                            type="button"
+                            id="logoutButton"
+                        >
+                            Sair
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </nav>
 
-    <main>
-        <form class="card_principal">
+    <main class="main_content">
 
-            <div>
-                <div class="weather-circle">
+        <section class="home_layout">
+
+            <form
+                id="homeWeatherForm"
+                class="search_card"
+            >
+                <div class="weather_circle">
                     <i
-                        id="weatherIcon"
+                        id="homeWeatherIcon"
                         class="fa-solid fa-cloud-sun"
                     ></i>
                 </div>
 
-                <select
-                    name="pais"
-                    id="pais"
-                    required
-                >
-                    <option
-                        value=""
-                        selected
-                        disabled
-                    >
+                <div class="search_header">
+                    <h2>Consultar clima</h2>
+
+                    <p>
+                        Informe a localização para consultar
+                        as condições climáticas atuais.
+                    </p>
+                </div>
+
+                <div class="input_group">
+                    <label for="homeCountryInput">
                         País
-                    </option>
-                </select>
+                    </label>
 
-                <select
-                    name="estado"
-                    id="estado"
-                    required
-                >
-                    <option
-                        value=""
-                        selected
-                        disabled
+                    <input
+                        type="text"
+                        id="homeCountryInput"
+                        name="country"
+                        placeholder="Ex.: Brasil"
+                        autocomplete="country-name"
+                        required
                     >
+                </div>
+
+                <div class="input_group">
+                    <label for="homeStateInput">
                         Estado
-                    </option>
-                </select>
+                    </label>
 
-                <select
-                    name="cidade"
-                    id="cidade"
-                    required
-                >
-                    <option
-                        value=""
-                        selected
-                        disabled
+                    <input
+                        type="text"
+                        id="homeStateInput"
+                        name="state"
+                        placeholder="Ex.: Pernambuco (opcional)"
+                        autocomplete="address-level1"
                     >
-                        Cidade
-                    </option>
-                </select>
+                </div>
 
-                <button type="submit">
+                <div class="input_group">
+                    <label for="homeCityInput">
+                        Cidade
+                    </label>
+
+                    <input
+                        type="text"
+                        id="homeCityInput"
+                        name="city_name"
+                        placeholder="Ex.: Recife"
+                        autocomplete="address-level2"
+                        required
+                    >
+                </div>
+
+                <button
+                    type="submit"
+                    id="homeSearchButton"
+                >
+                    <i class="fa-solid fa-magnifying-glass"></i>
                     Buscar clima
                 </button>
-            </div>
 
-        </form>
+                <p id="homeMessage"></p>
+            </form>
+
+            <section
+                id="homeResultCard"
+                class="result_card"
+                hidden
+            >
+                <div class="result_top">
+                    <div>
+                        <span class="result_label">
+                            Clima atual
+                        </span>
+
+                        <h2 id="homeResultCity">
+                            Cidade
+                        </h2>
+
+                        <p id="homeResultLocation">
+                            Estado, País
+                        </p>
+                    </div>
+
+                    <div class="result_icon">
+                        <i
+                            id="homeResultIcon"
+                            class="fa-solid fa-cloud-sun"
+                        ></i>
+                    </div>
+                </div>
+
+                <div class="temperature_area">
+                    <strong id="homeResultTemperature">
+                        --°C
+                    </strong>
+
+                    <span id="homeResultCondition">
+                        Condição climática
+                    </span>
+                </div>
+
+                <div class="weather_details">
+
+                    <div class="detail_card">
+                        <i class="fa-solid fa-temperature-half"></i>
+
+                        <div>
+                            <span>Sensação térmica</span>
+
+                            <strong id="homeResultApparentTemperature">
+                                --°C
+                            </strong>
+                        </div>
+                    </div>
+
+                    <div class="detail_card">
+                        <i class="fa-solid fa-droplet"></i>
+
+                        <div>
+                            <span>Umidade</span>
+
+                            <strong id="homeResultHumidity">
+                                --%
+                            </strong>
+                        </div>
+                    </div>
+
+                    <div class="detail_card">
+                        <i class="fa-solid fa-wind"></i>
+
+                        <div>
+                            <span>Vento</span>
+
+                            <strong id="homeResultWindSpeed">
+                                -- km/h
+                            </strong>
+                        </div>
+                    </div>
+
+                    <div class="detail_card">
+                        <i class="fa-solid fa-clock"></i>
+
+                        <div>
+                            <span>Registrado em</span>
+
+                            <strong id="homeResultRecordedAt">
+                                --
+                            </strong>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+        </section>
+
     </main>
+
+    <script src="/frontEnd/parteJS/auth.js"></script>
+    <script src="/frontEnd/parteJS/home.js"></script>
 
 </body>
 </html>

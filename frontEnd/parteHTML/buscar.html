@@ -15,7 +15,7 @@
 </head>
 
 <body>
-
+    
     <nav class="navbar">
         <div>
             <h1>SEARCH WEATHER</h1>
@@ -98,16 +98,53 @@
 
             <form
                 id="weatherSearchForm"
-                class="search_bar"
+                class="search_form"
             >
-                <input
-                    type="text"
-                    id="cityInput"
-                    name="city"
-                    placeholder="Busque por uma cidade..."
-                    autocomplete="off"
-                    required
-                >
+
+                <div class="input_group">
+                    <label for="cityInput">
+                        Cidade
+                    </label>
+
+                    <input
+                        type="text"
+                        id="cityInput"
+                        name="city_name"
+                        placeholder="Ex.: São Paulo"
+                        autocomplete="off"
+                        required
+                    >
+                </div>
+
+                <div class="input_group">
+                    <label for="stateInput">
+                        Estado (Opcional)
+                    </label>
+
+                    <input
+                        type="text"
+                        id="stateInput"
+                        name="state"
+                        placeholder="Ex.: São Paulo"
+                        autocomplete="off"
+                    >
+                </div>
+
+                <div class="input_group">
+                    <label for="countryInput">
+                        País
+                    </label>
+
+                    <input
+                        type="text"
+                        id="countryInput"
+                        name="country"
+                        placeholder="Ex.: Brasil"
+                        value=""
+                        autocomplete="country-name"
+                        required
+                    >
+                </div>
 
                 <button
                     type="submit"
@@ -115,6 +152,7 @@
                 >
                     Buscar
                 </button>
+
             </form>
 
             <p id="searchMessage"></p>
@@ -131,7 +169,7 @@
                         </h2>
 
                         <p id="resultLocation">
-                            Estado, país
+                            Estado, País
                         </p>
                     </div>
 
@@ -144,6 +182,7 @@
                 <div class="weather_info">
                     <div>
                         <span>Temperatura</span>
+
                         <strong id="resultTemperature">
                             --°C
                         </strong>
@@ -151,6 +190,7 @@
 
                     <div>
                         <span>Clima</span>
+
                         <strong id="resultCondition">
                             --
                         </strong>
@@ -158,6 +198,7 @@
 
                     <div>
                         <span>Sensação térmica</span>
+
                         <strong id="resultApparentTemperature">
                             --°C
                         </strong>
@@ -165,6 +206,7 @@
 
                     <div>
                         <span>Umidade</span>
+
                         <strong id="resultHumidity">
                             --%
                         </strong>
@@ -172,6 +214,7 @@
 
                     <div>
                         <span>Vento</span>
+
                         <strong id="resultWindSpeed">
                             -- km/h
                         </strong>
@@ -184,6 +227,7 @@
                     class="favorite_button"
                 >
                     <i class="fa-regular fa-star"></i>
+
                     Adicionar aos favoritos
                 </button>
             </section>

@@ -1,35 +1,62 @@
-const API_URL = "http://127.0.0.1:8000";
+const API_BASE_URL = "http://127.0.0.1:8000";
+
+const TOKEN_KEY = "searchWeatherToken";
+const USER_KEY = "searchWeatherUser";
+
+const LOGIN_PAGE = "/frontEnd/parteHTML/login.html";
+const HOME_PAGE = "/frontEnd/parteHTML/index.html";
 
 
+document.addEventListener("DOMContentLoaded", () => {
+    initializeRegisterForm();
+    initializeLoginForm();
+    initializeAuthenticationArea();
+});
 
 
-const registerForm = document.getElementById("registerForm");
+function initializeRegisterForm() {
+    const registerForm = document.getElementById("registerForm");
 
-if (registerForm) {
+    if (!registerForm) {
+        return;
+    }
+    
     registerForm.addEventListener("submit", async (event) => {
         event.preventDefault();
 
-        const username = document
-            .getElementById("username")
-            .value
-            .trim();
+        const usernameInput = document.getElementById("username");
+        const emailInput = document.getElementById("email");
+        const passwordInput = document.getElementById("password");
+        const registerMessage = document.getElementById("registerMessage");
+        const submitButton = registerForm.querySelector(
+            'button[type="submit"]'
+        );
 
-        const email = document
-            .getElementById("email")
-            .value
-            .trim();
+        const username = usernameInput.value.trim();
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
 
-        const password = document
-            .getElementById("password")
-            .value;
+        clearMessage(registerMessage);
 
-        const message = document.getElementById(
-            "registerMessage"
+        if (!username || !email || !password) {
+            showMessage(
+                registerMessage,
+                "Preencha todos os campos.",
+                "error"
+            );
+
+            return;
+        }
+
+        setButtonLoading(
+            submitButton,
+            true,
+            "Criando conta..."
         );
 
         try {
             const response = await fetch(
-                `${API_URL}/users/register`,
+                `${API_BASE_URL}/users/register`,
                 {
                     method: "POST",
 
@@ -45,57 +72,88 @@ if (registerForm) {
                 }
             );
 
-            const data = await response.json();
+            const data = await readResponseData(response);
 
             if (!response.ok) {
                 throw new Error(
-                    data.detail ||
-                    "Não foi possível realizar o cadastro."
+                    getErrorMessage(
+                        data,
+                        "Não foi possível criar a conta."
+                    )
                 );
             }
 
-            message.style.color = "green";
-            message.textContent = data.message;
+            showMessage(
+                registerMessage,
+                data.message || "Conta criada com sucesso.",
+                "success"
+            );
 
             registerForm.reset();
 
             setTimeout(() => {
-                window.location.href =
-                    "/frontEnd/parteHTML/login.html";
+                window.location.href = LOGIN_PAGE;
             }, 1200);
 
         } catch (error) {
-            message.style.color = "red";
-            message.textContent = error.message;
+            showMessage(
+                registerMessage,
+                error.message,
+                "error"
+            );
+
+        } finally {
+            setButtonLoading(
+                submitButton,
+                false,
+                "Criar conta"
+            );
         }
     });
 }
 
 
+function initializeLoginForm() {
+    const loginForm = document.getElementById("loginForm");
 
+    if (!loginForm) {
+        return;
+    }
 
-const loginForm = document.getElementById("loginForm");
-
-if (loginForm) {
     loginForm.addEventListener("submit", async (event) => {
         event.preventDefault();
 
-        const email = document
-            .getElementById("email")
-            .value
-            .trim();
+        const emailInput = document.getElementById("email");
+        const passwordInput = document.getElementById("password");
+        const loginMessage = document.getElementById("loginMessage");
+        const submitButton = loginForm.querySelector(
+            'button[type="submit"]'
+        );
 
-        const password = document
-            .getElementById("password")
-            .value;
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
 
-        const message = document.getElementById(
-            "loginMessage"
+        clearMessage(loginMessage);
+
+        if (!email || !password) {
+            showMessage(
+                loginMessage,
+                "Preencha o e-mail e a senha.",
+                "error"
+            );
+
+            return;
+        }
+
+        setButtonLoading(
+            submitButton,
+            true,
+            "Entrando..."
         );
 
         try {
             const response = await fetch(
-                `${API_URL}/users/login`,
+                `${API_BASE_URL}/users/login`,
                 {
                     method: "POST",
 
@@ -110,154 +168,447 @@ if (loginForm) {
                 }
             );
 
-            const data = await response.json();
+            const data = await readResponseData(response);
 
             if (!response.ok) {
                 throw new Error(
-                    data.detail ||
-                    "Não foi possível realizar o login."
+                    getErrorMessage(
+                        data,
+                        "Não foi possível realizar o login."
+                    )
                 );
             }
 
-            localStorage.setItem(
-                "token",
-                data.access_token
+            if (!data.access_token) {
+                throw new Error(
+                    "O servidor não retornou um token de acesso."
+                );
+            }
+
+            saveAuthentication(
+                data.access_token,
+                data.user
             );
 
-            localStorage.setItem(
-                "user",
-                JSON.stringify(data.user)
+            showMessage(
+                loginMessage,
+                data.message || "Login realizado com sucesso.",
+                "success"
             );
 
-            message.style.color = "green";
-            message.textContent =
-                "Login realizado com sucesso.";
+            loginForm.reset();
 
             setTimeout(() => {
-                window.location.href =
-                    "/frontEnd/index.html";
-            }, 1000);
+                window.location.href = HOME_PAGE;
+            }, 800);
 
         } catch (error) {
-            message.style.color = "red";
-            message.textContent = error.message;
+            showMessage(
+                loginMessage,
+                error.message,
+                "error"
+            );
+
+        } finally {
+            setButtonLoading(
+                submitButton,
+                false,
+                "Entrar"
+            );
         }
     });
 }
 
 
+async function initializeAuthenticationArea() {
+    const loginButton = document.getElementById("loginButton");
+    const profileMenu = document.getElementById("profileMenu");
+    const profileButton = document.getElementById("profileButton");
+    const profileDropdown = document.getElementById("profileDropdown");
+    const logoutButton = document.getElementById("logoutButton");
+    const userName = document.getElementById("userName");
 
+    const hasAuthenticationElements =
+        loginButton ||
+        profileMenu ||
+        profileButton ||
+        logoutButton;
 
-function getToken() {
-    return localStorage.getItem("token");
+    if (!hasAuthenticationElements) {
+        return;
+    }
+
+    hideProfileDropdown(profileDropdown);
+
+    if (profileMenu) {
+        profileMenu.hidden = true;
+    }
+
+    if (loginButton) {
+        loginButton.hidden = false;
+    }
+
+    const token = getToken();
+
+    if (!token) {
+        showLoggedOutNavbar(
+            loginButton,
+            profileMenu,
+            profileDropdown
+        );
+
+        return;
+    }
+
+    const savedUser = getSavedUser();
+
+    if (savedUser) {
+        showLoggedInNavbar(
+            savedUser,
+            loginButton,
+            profileMenu,
+            userName
+        );
+    }
+
+    const currentUser = await fetchCurrentUser();
+
+    if (!currentUser) {
+        logout(false);
+
+        showLoggedOutNavbar(
+            loginButton,
+            profileMenu,
+            profileDropdown
+        );
+
+        return;
+    }
+
+    saveUser(currentUser);
+
+    showLoggedInNavbar(
+        currentUser,
+        loginButton,
+        profileMenu,
+        userName
+    );
+
+    if (profileButton && profileDropdown) {
+        profileButton.addEventListener("click", (event) => {
+            event.stopPropagation();
+
+            toggleProfileDropdown(profileDropdown);
+        });
+    }
+
+    if (profileDropdown) {
+        profileDropdown.addEventListener("click", (event) => {
+            event.stopPropagation();
+        });
+    }
+
+    document.addEventListener("click", () => {
+        hideProfileDropdown(profileDropdown);
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            hideProfileDropdown(profileDropdown);
+        }
+    });
+
+    if (logoutButton) {
+        logoutButton.addEventListener("click", () => {
+            logout(true);
+        });
+    }
 }
 
 
-function getUser() {
-    const storedUser = localStorage.getItem("user");
+async function fetchCurrentUser() {
+    const token = getToken();
 
-    if (!storedUser) {
+    if (!token) {
         return null;
     }
 
     try {
-        return JSON.parse(storedUser);
+        const response = await fetch(
+            `${API_BASE_URL}/users/profile`,
+            {
+                method: "GET",
 
-    } catch {
-        localStorage.removeItem("user");
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                }
+            }
+        );
+
+        if (!response.ok) {
+            return null;
+        }
+
+        return await response.json();
+
+    } catch (error) {
+        console.error(
+            "Erro ao buscar usuário autenticado:",
+            error
+        );
 
         return null;
     }
 }
 
 
-function logout() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+function showLoggedInNavbar(
+    user,
+    loginButton,
+    profileMenu,
+    userName
+) {
+    if (loginButton) {
+        loginButton.hidden = true;
+    }
 
-    window.location.href =
-        "/frontEnd/parteHTML/login.html";
+    if (profileMenu) {
+        profileMenu.hidden = false;
+    }
+
+    if (userName) {
+        userName.textContent =
+            user?.username?.trim() || "Perfil";
+    }
 }
 
 
+function showLoggedOutNavbar(
+    loginButton,
+    profileMenu,
+    profileDropdown
+) {
+    if (loginButton) {
+        loginButton.hidden = false;
+    }
 
-document.addEventListener("DOMContentLoaded", () => {
-    const loginButton = document.getElementById(
-        "loginButton"
+    if (profileMenu) {
+        profileMenu.hidden = true;
+    }
+
+    hideProfileDropdown(profileDropdown);
+}
+
+
+function toggleProfileDropdown(profileDropdown) {
+    if (!profileDropdown) {
+        return;
+    }
+
+    const isOpen =
+        profileDropdown.dataset.open === "true";
+
+    if (isOpen) {
+        hideProfileDropdown(profileDropdown);
+    } else {
+        showProfileDropdown(profileDropdown);
+    }
+}
+
+
+function showProfileDropdown(profileDropdown) {
+    if (!profileDropdown) {
+        return;
+    }
+
+    profileDropdown.hidden = false;
+    profileDropdown.dataset.open = "true";
+}
+
+
+function hideProfileDropdown(profileDropdown) {
+    if (!profileDropdown) {
+        return;
+    }
+
+    profileDropdown.hidden = true;
+    profileDropdown.dataset.open = "false";
+}
+
+
+function saveAuthentication(token, user) {
+    localStorage.setItem(TOKEN_KEY, token);
+
+    if (user) {
+        saveUser(user);
+    }
+}
+
+
+function saveUser(user) {
+    localStorage.setItem(
+        USER_KEY,
+        JSON.stringify(user)
     );
+}
 
-    const profileMenu = document.getElementById(
-        "profileMenu"
-    );
 
-    const profileButton = document.getElementById(
-        "profileButton"
-    );
+function getToken() {
+    return localStorage.getItem(TOKEN_KEY);
+}
 
-    const profileDropdown = document.getElementById(
-        "profileDropdown"
-    );
 
-    const logoutButton = document.getElementById(
-        "logoutButton"
-    );
+function getSavedUser() {
+    const savedUser = localStorage.getItem(USER_KEY);
 
-    const userName = document.getElementById(
-        "userName"
-    );
+    if (!savedUser) {
+        return null;
+    }
 
+    try {
+        return JSON.parse(savedUser);
+
+    } catch (error) {
+        localStorage.removeItem(USER_KEY);
+
+        return null;
+    }
+}
+
+
+function logout(redirectToLogin = true) {
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(USER_KEY);
+
+    if (redirectToLogin) {
+        window.location.href = LOGIN_PAGE;
+    }
+}
+
+
+function isAuthenticated() {
+    return Boolean(getToken());
+}
+
+
+function getAuthorizationHeaders() {
     const token = getToken();
-    const user = getUser();
 
-    if (
-        loginButton &&
-        profileMenu &&
-        userName
-    ) {
-        if (token && user) {
-            loginButton.style.display = "none";
-            profileMenu.style.display = "block";
-            userName.textContent = user.username;
+    const headers = {
+        "Content-Type": "application/json"
+    };
 
-        } else {
-            loginButton.style.display = "block";
-            profileMenu.style.display = "none";
-        }
+    if (token) {
+        headers.Authorization = `Bearer ${token}`;
     }
 
-    if (
-        profileButton &&
-        profileDropdown
-    ) {
-        profileButton.addEventListener(
-            "click",
-            () => {
-                const isOpen =
-                    profileDropdown.style.display ===
-                    "block";
+    return headers;
+}
 
-                profileDropdown.style.display =
-                    isOpen
-                        ? "none"
-                        : "block";
-            }
-        );
+
+function requireAuthentication() {
+    if (isAuthenticated()) {
+        return true;
     }
 
-    if (logoutButton) {
-        logoutButton.addEventListener(
-            "click",
-            logout
-        );
+    window.location.href = LOGIN_PAGE;
+
+    return false;
+}
+
+
+async function readResponseData(response) {
+    const contentType =
+        response.headers.get("content-type") || "";
+
+    if (contentType.includes("application/json")) {
+        return await response.json();
     }
 
-    document.addEventListener("click", (event) => {
-        if (
-            profileMenu &&
-            profileDropdown &&
-            !profileMenu.contains(event.target)
-        ) {
-            profileDropdown.style.display = "none";
-        }
-    });
-});
+    const text = await response.text();
+
+    return {
+        detail: text
+    };
+}
+
+
+function getErrorMessage(data, defaultMessage) {
+    if (!data) {
+        return defaultMessage;
+    }
+
+    if (typeof data.detail === "string") {
+        return data.detail;
+    }
+
+    if (Array.isArray(data.detail)) {
+        return data.detail
+            .map((error) => {
+                return error.msg || "Campo inválido.";
+            })
+            .join(" ");
+    }
+
+    if (typeof data.message === "string") {
+        return data.message;
+    }
+
+    return defaultMessage;
+}
+
+
+function showMessage(element, message, type) {
+    if (!element) {
+        return;
+    }
+
+    element.textContent = message;
+    element.classList.remove(
+        "success",
+        "error"
+    );
+
+    if (type) {
+        element.classList.add(type);
+    }
+}
+
+
+function clearMessage(element) {
+    if (!element) {
+        return;
+    }
+
+    element.textContent = "";
+    element.classList.remove(
+        "success",
+        "error"
+    );
+}
+
+
+function setButtonLoading(
+    button,
+    isLoading,
+    buttonText
+) {
+    if (!button) {
+        return;
+    }
+
+    button.disabled = isLoading;
+    button.textContent = buttonText;
+}
+
+
+window.SearchWeatherAuth = {
+    getToken,
+    getSavedUser,
+    getAuthorizationHeaders,
+    isAuthenticated,
+    requireAuthentication,
+    fetchCurrentUser,
+    logout
+};
