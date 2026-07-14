@@ -3,58 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Search Weather - Histórico</title>
+
     <link rel="stylesheet" href="/frontEnd/parteCSS/historico.css">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
 </head>
+
 <body>
+
     <nav class="navbar">
         <div>
             <h1>SEARCH WEATHER</h1>
 
             <ul>
-                <li><a href="/frontEnd/parteHTML/index.html">Home</a></li>
-                <li><a href="/frontEnd/parteHTML/buscar.html">Buscar</a></li>
-                <li><a href="/frontEnd/parteHTML/favoritos.html">Favoritos</a></li>
-                <li><a href="/frontEnd/parteHTML/alertas.html">Alertas</a></li>
+                <li>
+                    <a href="/frontEnd/parteHTML/index.html">
+                        Home
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/frontEnd/parteHTML/buscar.html">
+                        Buscar
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/frontEnd/parteHTML/favoritos.html">
+                        Favoritos
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="/frontEnd/parteHTML/alertas.html">
+                        Alertas
+                    </a>
+                </li>
             </ul>
+
+            <div class="user_area">
+                <a
+                    href="/frontEnd/parteHTML/login.html"
+                    id="loginButton"
+                    class="login_button"
+                >
+                    Login
+                </a>
+
+                <div
+                    id="profileMenu"
+                    class="profile_menu"
+                >
+                    <button
+                        type="button"
+                        id="profileButton"
+                        class="profile_button"
+                    >
+                        <i class="fa-solid fa-user"></i>
+
+                        <span id="userName">
+                            Perfil
+                        </span>
+
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+
+                    <div
+                        id="profileDropdown"
+                        class="profile_dropdown"
+                    >
+                        <a href="/frontEnd/parteHTML/perfil.html">
+                            Meu perfil
+                        </a>
+
+                        <button
+                            type="button"
+                            id="logoutButton"
+                        >
+                            Sair
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </nav>
 
     <main class="main_content">
         <section class="history_container">
+
             <h2>Histórico</h2>
 
-            <form class="history_search">
-                <input type="text" placeholder="Pesquisar cidade no histórico...">
-                <button type="submit">Buscar</button>
+            <form
+                id="historySearchForm"
+                class="history_search"
+            >
+                <input
+                    type="text"
+                    id="historySearchInput"
+                    placeholder="Pesquisar cidade no histórico..."
+                    autocomplete="off"
+                >
+
+                <button type="submit">
+                    Buscar
+                </button>
             </form>
 
-            <div class="history_card">
-                <div class="history_item">
-                    <h3>São Paulo, SP</h3>
-                    <p>Clima: Nublado</p>
-                    <span>Pesquisado em: 07/07/2026</span>
-                </div>
+            <p id="historyMessage"></p>
 
-                <div class="history_item">
-                    <h3>Recife, PE</h3>
-                    <p>Clima: Ensolarado</p>
-                    <span>Pesquisado em: 06/07/2026</span>
-                </div>
-
-                <div class="history_item">
-                    <h3>Manaus, AM</h3>
-                    <p>Clima: Chuva forte</p>
-                    <span>Pesquisado em: 05/07/2026</span>
-                </div>
-
-                <div class="history_item">
-                    <h3>Curitiba, PR</h3>
-                    <p>Clima: Frio</p>
-                    <span>Pesquisado em: 04/07/2026</span>
-                </div>
+            <div
+                id="historyList"
+                class="history_card"
+            >
+                <p class="empty_message">
+                    Seu histórico aparecerá aqui.
+                </p>
             </div>
+
         </section>
     </main>
+
+    <script src="/frontEnd/parteJS/auth.js"></script>
+    <script src="/frontEnd/parteJS/historico.js"></script>
+
 </body>
 </html>

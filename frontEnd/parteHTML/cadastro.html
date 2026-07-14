@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Search Weather - Cadastro</title>
+
+    <link rel="stylesheet" href="/frontEnd/parteCSS/cadastro.css">
+</head>
+
+<body>
+
+    <main class="register_page">
+        <section class="register_card">
+
+            <div class="register_header">
+                <h1>SEARCH WEATHER</h1>
+
+                <p>
+                    Crie sua conta para salvar favoritos,
+                    histórico e alertas climáticos.
+                </p>
+            </div>
+
+            <form
+                id="registerForm"
+                class="register_form"
+            >
+                <div class="input_group">
+                    <label for="username">
+                        Nome
+                    </label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Digite seu nome"
+                        autocomplete="name"
+                        required
+                    >
+                </div>
+
+                <div class="input_group">
+                    <label for="email">
+                        E-mail
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Digite seu e-mail"
+                        autocomplete="email"
+                        required
+                    >
+                </div>
+
+                <div class="input_group">
+                    <label for="password">
+                        Senha
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Digite sua senha"
+                        autocomplete="new-password"
+                        required
+                    >
+                </div>
+
+                <button type="submit">
+                    Criar conta
+                </button>
+
+                <p
+                    id="registerMessage"
+                    class="form_message"
+                ></p>
+            </form>
+
+            <div class="register_footer">
+                <p>
+                    Já possui uma conta?
+
+                    <a href="/frontEnd/parteHTML/login.html">
+                        Fazer login
+                    </a>
+                </p>
+
+                <a
+                    href="/frontEnd/index.html"
+                    class="back_link"
+                >
+                    Voltar para Home
+                </a>
+            </div>
+
+        </section>
+    </main>
+
+    <script src="/frontEnd/parteJS/auth.js"></script>
+
+</body>
+</html>

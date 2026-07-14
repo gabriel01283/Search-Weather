@@ -3,56 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Search Weather - Buscar</title>
+
     <link rel="stylesheet" href="/frontEnd/parteCSS/busca.css">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
 </head>
+
 <body>
+
     <nav class="navbar">
         <div>
             <h1>SEARCH WEATHER</h1>
 
             <ul>
-                <li><a href="/frontEnd/parteHTML/index.html">Home</a></li>
-                <li><a href="/frontEnd/parteHTML/favoritos.html">Favoritos</a></li>
-                <li><a href="/frontEnd/parteHTML/historico.html">Histórico</a></li>
-                <li><a href="/frontEnd/parteHTML/alertas.html">Alertas</a></li>
+                <li>
+                    <a href="/frontEnd/parteHTML/index.html">
+                        Home
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/frontEnd/parteHTML/favoritos.html">
+                        Favoritos
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/frontEnd/parteHTML/historico.html">
+                        Histórico
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/frontEnd/parteHTML/alertas.html">
+                        Alertas
+                    </a>
+                </li>
             </ul>
+
+            <div class="user_area">
+                <a
+                    href="/frontEnd/parteHTML/login.html"
+                    id="loginButton"
+                    class="login_button"
+                >
+                    Login
+                </a>
+
+                <div
+                    id="profileMenu"
+                    class="profile_menu"
+                >
+                    <button
+                        type="button"
+                        id="profileButton"
+                        class="profile_button"
+                    >
+                        <i class="fa-solid fa-user"></i>
+
+                        <span id="userName">
+                            Perfil
+                        </span>
+
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+
+                    <div
+                        id="profileDropdown"
+                        class="profile_dropdown"
+                    >
+                        <a href="/frontEnd/parteHTML/perfil.html">
+                            Meu perfil
+                        </a>
+
+                        <button
+                            type="button"
+                            id="logoutButton"
+                        >
+                            Sair
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </nav>
 
     <main class="main_content">
         <section class="search_area">
-            <form class="search_bar">
-                <input type="text" placeholder="Busque por uma cidade..." required>
-                <button type="submit">Buscar</button>
+
+            <form
+                id="weatherSearchForm"
+                class="search_bar"
+            >
+                <input
+                    type="text"
+                    id="cityInput"
+                    name="city"
+                    placeholder="Busque por uma cidade..."
+                    autocomplete="off"
+                    required
+                >
+
+                <button
+                    type="submit"
+                    id="searchButton"
+                >
+                    Buscar
+                </button>
             </form>
 
-            <div class="result_card">
-                <h2>Cidade, Estado</h2>
+            <p id="searchMessage"></p>
+
+            <section
+                id="resultCard"
+                class="result_card"
+                hidden
+            >
+                <div class="result_header">
+                    <div>
+                        <h2 id="resultCity">
+                            Cidade
+                        </h2>
+
+                        <p id="resultLocation">
+                            Estado, país
+                        </p>
+                    </div>
+
+                    <i
+                        id="weatherResultIcon"
+                        class="fa-solid fa-cloud-sun"
+                    ></i>
+                </div>
 
                 <div class="weather_info">
                     <div>
                         <span>Temperatura</span>
-                        <strong>25°C</strong>
+                        <strong id="resultTemperature">
+                            --°C
+                        </strong>
                     </div>
 
                     <div>
                         <span>Clima</span>
-                        <strong>Ensolarado</strong>
+                        <strong id="resultCondition">
+                            --
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>Sensação térmica</span>
+                        <strong id="resultApparentTemperature">
+                            --°C
+                        </strong>
                     </div>
 
                     <div>
                         <span>Umidade</span>
-                        <strong>68%</strong>
+                        <strong id="resultHumidity">
+                            --%
+                        </strong>
                     </div>
 
                     <div>
                         <span>Vento</span>
-                        <strong>12 km/h</strong>
+                        <strong id="resultWindSpeed">
+                            -- km/h
+                        </strong>
                     </div>
                 </div>
-            </div>
+
+                <button
+                    type="button"
+                    id="favoriteButton"
+                    class="favorite_button"
+                >
+                    <i class="fa-regular fa-star"></i>
+                    Adicionar aos favoritos
+                </button>
+            </section>
+
         </section>
     </main>
+
+    <script src="/frontEnd/parteJS/auth.js"></script>
+    <script src="/frontEnd/parteJS/buscar.js"></script>
+
 </body>
 </html>

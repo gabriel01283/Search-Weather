@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Search Weather - Login</title>
+
+    <link rel="stylesheet" href="/frontEnd/parteCSS/login.css">
+</head>
+
+<body>
+
+    <main class="login_page">
+        <section class="login_card">
+
+            <div class="login_header">
+                <h1>SEARCH WEATHER</h1>
+
+                <p>
+                    Entre na sua conta para acessar seu histórico,
+                    seus favoritos e seus alertas climáticos.
+                </p>
+            </div>
+
+            <form
+                id="loginForm"
+                class="login_form"
+            >
+                <div class="input_group">
+                    <label for="email">
+                        E-mail
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Digite seu e-mail"
+                        autocomplete="email"
+                        required
+                    >
+                </div>
+
+                <div class="input_group">
+                    <label for="password">
+                        Senha
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Digite sua senha"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <button type="submit">
+                    Entrar
+                </button>
+
+                <p
+                    id="loginMessage"
+                    class="form_message"
+                ></p>
+            </form>
+
+            <div class="login_footer">
+                <p>
+                    Ainda não tem uma conta?
+
+                    <a href="/frontEnd/parteHTML/cadastro.html">
+                        Cadastre-se
+                    </a>
+                </p>
+
+                <a
+                    href="/frontEnd/index.html"
+                    class="back_link"
+                >
+                    Voltar para Home
+                </a>
+            </div>
+
+        </section>
+    </main>
+
+    <script src="/frontEnd/parteJS/auth.js"></script>
+
+</body>
+</html>

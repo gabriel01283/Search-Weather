@@ -3,50 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Search Weather - Favoritos</title>
+
     <link rel="stylesheet" href="/frontEnd/parteCSS/favoritos.css">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
 </head>
+
 <body>
+
     <nav class="navbar">
         <div>
             <h1>SEARCH WEATHER</h1>
 
             <ul>
-                <li><a href="/frontEnd/parteHTML/index.html">Home</a></li>
-                <li><a href="/frontEnd/parteHTML/buscar.html">Buscar</a></li>
-                <li><a href="/frontEnd/parteHTML/historico.html">Histórico</a></li>
-                <li><a href="/frontEnd/parteHTML/alertas.html">Alertas</a></li>
+                <li>
+                    <a href="/frontEnd/parteHTML/index.html">
+                        Home
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="/frontEnd/parteHTML/buscar.html">
+                        Buscar
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="/frontEnd/parteHTML/historico.html">
+                        Histórico
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/frontEnd/parteHTML/alertas.html">
+                        Alertas
+                    </a>
+                </li>
             </ul>
+
+            <div class="user_area">
+                <a
+                    href="/frontEnd/parteHTML/login.html"
+                    id="loginButton"
+                    class="login_button"
+                >
+                    Login
+                </a>
+
+                <div
+                    id="profileMenu"
+                    class="profile_menu"
+                >
+                    <button
+                        type="button"
+                        id="profileButton"
+                        class="profile_button"
+                    >
+                        <i class="fa-solid fa-user"></i>
+
+                        <span id="userName">
+                            Perfil
+                        </span>
+
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+
+                    <div
+                        id="profileDropdown"
+                        class="profile_dropdown"
+                    >
+                        <a href="/frontEnd/parteHTML/perfil.html">
+                            Meu perfil
+                        </a>
+
+                        <button
+                            type="button"
+                            id="logoutButton"
+                        >
+                            Sair
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </nav>
 
     <main class="main_content">
         <section class="favorites_container">
+
             <h2>Favoritos</h2>
 
-            <div class="favorites_grid">
-                <article class="favorite_card">
-                    <h3>São Paulo, SP</h3>
-                    <p>Parcialmente nublado</p>
-                    <strong>24°C</strong>
-                    <button type="button">Remover</button>
-                </article>
+            <p id="favoritesMessage"></p>
 
-                <article class="favorite_card">
-                    <h3>Recife, PE</h3>
-                    <p>Ensolarado</p>
-                    <strong>29°C</strong>
-                    <button type="button">Remover</button>
-                </article>
-
-                <article class="favorite_card">
-                    <h3>Manaus, AM</h3>
-                    <p>Chuva forte</p>
-                    <strong>27°C</strong>
-                    <button type="button">Remover</button>
-                </article>
+            <div
+                id="favoritesList"
+                class="favorites_grid"
+            >
+                <p class="empty_message">
+                    Suas cidades favoritas aparecerão aqui.
+                </p>
             </div>
+
         </section>
     </main>
+
+    <script src="/frontEnd/parteJS/auth.js"></script>
+    <script src="/frontEnd/parteJS/favoritos.js"></script>
+
 </body>
 </html>
