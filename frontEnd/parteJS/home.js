@@ -1,4 +1,4 @@
-const API_URL = "https://search-weather-back-production.up.railway.app";
+const API_HOME_URL = "https://search-weather-back-production.up.railway.app";
 
 const homeWeatherForm = document.getElementById(
     "homeWeatherForm"
