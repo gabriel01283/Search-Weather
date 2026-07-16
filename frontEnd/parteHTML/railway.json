@@ -1,6 +1,6 @@
 {
   "$schema": "https://railway.com/railway.schema.json",
   "deploy": {
-    "startCommand": "python -m http.server $PORT"
+    "startCommand": "python3 -m http.server $PORT"
   }
 }
