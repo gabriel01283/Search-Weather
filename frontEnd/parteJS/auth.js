@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://127.0.0.1:8000";
+const API_URL = "https://search-weather-back-production.up.railway.app";
 
 const TOKEN_KEY = "searchWeatherToken";
 const USER_KEY = "searchWeatherUser";
