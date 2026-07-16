@@ -1,4 +1,4 @@
-const API_URL = "https://search-weather-back-production.up.railway.app";
+const API_BASE_URL = "https://search-weather-back-production.up.railway.app";
 
 const TOKEN_KEY = "searchWeatherToken";
 const USER_KEY = "searchWeatherUser";
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function initializeRegisterForm() {
     const registerForm = document.getElementById("registerForm");
-
+    
     if (!registerForm) {
         return;
     }
