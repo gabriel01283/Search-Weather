@@ -22,6 +22,7 @@ app = FastAPI(
 allowed_origins = [
     "http://127.0.0.1:3000",
     "http://localhost:3000",
+    "https://search-weather-front-production.up.railway.app"
 ]
 
 
