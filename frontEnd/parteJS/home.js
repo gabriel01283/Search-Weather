@@ -106,7 +106,7 @@ async function searchWeatherFromHome(event) {
 
         return;
     }
-
+    
     setSearchLoading(true);
 
     try {
